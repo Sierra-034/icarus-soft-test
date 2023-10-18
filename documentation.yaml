@@ -1,0 +1,105 @@
+openapi: 3.0.3
+info:
+  title: Icarus api test
+  description: |-
+    Here should go my api description
+  contact:
+    email: samuel.gomez.balderas@gmail.com
+  version: 1.0.0
+tags:
+  - name: persons
+    description: Todo sobre los endpoints para persona
+paths:
+  /api/v1/persons/searchByName:
+    post:
+      tags:
+        - persons
+      summary: Busca el nombre de una persona
+      description: Busca en la base de datos el nombre de una persona
+      requestBody:
+        description: JSON con el nombre de la persona a buscar
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Person'
+        required: true
+      responses:
+        '200':
+          description: Nombre encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessSearchByName'          
+        '404':
+          description: Nombre no encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FailureSearchByName'
+
+  /api/v1/persons/insertName:
+    post:
+      tags:
+        - persons
+      summary: Inserta un nuevo nombre en la tabla persons
+      requestBody:
+        description: JSON con el nombre de la persona a insertar
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Person'
+        required: true
+      responses:
+        '201':
+          description: Nombre insertado en la tabla
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessInsertName'
+        '500':
+          description: Nombre insertado en la tabla
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FailureInsertName'
+
+components:
+  schemas:
+    Person:
+      type: object
+      required:
+        - nombre
+      properties:
+        nombre:
+          type: string
+          description: Nombre por buscar, la búsqueda es insensible a mayúsculas o minúsculas
+          example: amanda robbins
+    SuccessSearchByName:
+      type: object
+      properties:
+        encontrado:
+          type: boolean
+          description: Indica si el nombre fué encontrado o no
+          example: true
+    FailureSearchByName:
+      type: object
+      properties:
+        encontrado:
+          type: boolean
+          description: Indica si el nombre fué encontrado o no
+          example: false
+    SuccessInsertName:
+      type: object
+      properties:
+        message:
+          type: string
+          description: Indica que el nombre fué insertado correctamente
+          example: Successful operation
+    FailureInsertName:
+      type: object
+      properties:
+        message:
+          type: string
+          description: Indica que el nombre no fué insertado
+          example: Operation failed
+  
