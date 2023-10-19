@@ -19,3 +19,6 @@ class Bitacora(db.Model):
             return True
         except:
             return False
+        
+    def __repr__(self) -> str:
+        return f'{self.params}, {self.response}, {self.date_time}'
