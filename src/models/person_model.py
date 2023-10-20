@@ -1,5 +1,5 @@
 from sqlalchemy.event import listen
-from models.sqlalchemy_instance import db
+from src.models.sqlalchemy_instance import db
 
 class Person(db.Model):
     __tablename__ = 'persons'
