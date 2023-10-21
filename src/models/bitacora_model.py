@@ -1,4 +1,4 @@
-from src.models.sqlalchemy_instance import db
+from models.sqlalchemy_instance import db
 
 class Bitacora(db.Model):
     __tablename__ = 'bitacora'

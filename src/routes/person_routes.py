@@ -1,5 +1,5 @@
 from flask import Blueprint, request, jsonify
-from src.models import Person, Bitacora
+from models import Person, Bitacora
 
 persons = Blueprint('person', __name__, url_prefix='/persons')
 
