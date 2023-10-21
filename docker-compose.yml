@@ -1,0 +1,25 @@
+version: "3.8"
+
+services:
+  icarus-api:
+    build: ./src
+    ports:
+      - 5000:5000
+    environment:
+      - SQLALCHEMY_DATABASE_URI=postgresql://postgres:somepassword@icarus-db:5432/icarus_soft
+    command: python3 -m flask --app main run --host=0.0.0.0
+    depends_on:
+      - icarus-db
+
+  icarus-db:
+    build: ./db
+    expose:
+      - 5432
+    environment:
+      - PGDATA=/var/lib/postgresql/data/pgdata
+      - POSTGRES_PASSWORD=somepassword
+    volumes:
+    - pg_data:/var/lib/postgresql/data
+
+volumes:
+  pg_data:

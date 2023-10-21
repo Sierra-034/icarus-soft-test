@@ -1,14 +1,11 @@
-## Instructions to run the project on localhost
+## Instructions to run the project with docker compose
+This is similar to the above procedure in terms that we are using a docker container for the database, but in this case we also create a container for our api
 
-### Prepare your database container
-1. Build a docker image from the `./db/Dockerfile` with `docker build -t icarus/postgres:1.0 -f db/Dockerfile ./db`
-2. Run a container from our image: `docker run --name icarus-database-container -p 5432:5432 -e POSTGRES_PASSWORD=somepassword -d icarus/postgres:1.0`
-3. To interact with the newly created DB run: `docker exec -it icarus-database-container psql -U postgres`
-4. Now type `\c icarus_soft` and you'll connect to *icarus_database* then you can list the tables with `\dt`
-4. To quit from the psql client use `\q`
+### Create images and containers for both, database and api
+1. Place on the project root folder which is the same where this README.md file is.
+2. Run `docker compose up -d --build`. This will create a container for each both service and is going to start them as well
 
-### Create environment variables
-Create a file called `.env` in which you'll need to specify the next variables.
-```.env
-SQLALCHEMY_DATABASE_URI=postgresql://postgres:somepassword@localhost:5432/icarus_soft
-```
+### Using the api
+Here in the root project folder there is a `documentation.yml` file which you can place on a [swagger editor](https://editor.swagger.io/) where you can replace the code or simply upload the `documentation.yml` file.
+
+Or you can simply test the api with the commands in `curl.sh` file placed in this directory.
